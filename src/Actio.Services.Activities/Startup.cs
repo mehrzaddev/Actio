@@ -8,6 +8,7 @@ using Actio.Common.RabbitMq;
 using Actio.Services.Activities.Domain.Repositories;
 using Actio.Services.Activities.Handlers;
 using Actio.Services.Activities.Repositories;
+using Actio.Services.Activities.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
@@ -36,6 +37,7 @@ namespace Actio.Services.Activities
             services.AddScoped<ICommandHandler<CreateActivity>,CreateActivityHandler>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IActivityRepository, ActivityRepository>();
+            services.AddScoped<IDatabaseSeeder, CustomMongoSeeder>();
 
         }
 
@@ -48,6 +50,9 @@ namespace Actio.Services.Activities
             }
 
             app.UseMvcWithDefaultRoute();
+
+            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializerAsync();
+
 
         }
     }
