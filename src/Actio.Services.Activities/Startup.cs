@@ -38,6 +38,8 @@ namespace Actio.Services.Activities
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IActivityRepository, ActivityRepository>();
             services.AddScoped<IDatabaseSeeder, CustomMongoSeeder>();
+            services.AddScoped<IActivityService, ActivityService>();
+
 
         }
 

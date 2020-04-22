@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Actio.Common.Exeptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace Actio.Services.Activities.Domain.Models
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new Exception();
+                throw new ActioExeption("empty_activity_name","Activity Name Can Not Be Empty");
             }
 
             Id = id;
