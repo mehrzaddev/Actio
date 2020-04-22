@@ -16,9 +16,9 @@ namespace Actio.Services.Identity
     {
         public static void Main(string[] args)
         {
-            ServiceHost.Create<Startup>(args)
+            ServiceHost.Create<Startup>(args, "http://*:5051")
                 .UseRabbitMq()
-                .SubscribeToCommand<CreateActivity>()
+                .SubscribeToCommand<CreateUser>()
                 .Build()
                 .Run();
         }

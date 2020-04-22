@@ -13,7 +13,7 @@ namespace Actio.Services.Identity.Services
         private readonly IUserRepository _userRepository;
         private readonly IEncrypter _encrypter;
 
-        public UserService(IUserRepository userRepository, Encrypter encrypter)
+        public UserService(IUserRepository userRepository, IEncrypter encrypter)
         {
             _userRepository = userRepository;
             _encrypter = encrypter;

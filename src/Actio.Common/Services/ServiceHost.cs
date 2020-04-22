@@ -17,7 +17,7 @@ namespace Actio.Common.Services {
 
         public void Run () => _webHost.Run ();
 
-        public static HostBuilder Create<TSturtup> (string[] args) where TSturtup : class {
+        public static HostBuilder Create<TSturtup> (string[] args, string useUrl = "http://*:5050") where TSturtup : class {
 
             Console.Title = typeof (TSturtup).Namespace;
             var config = new ConfigurationBuilder ()
@@ -25,7 +25,7 @@ namespace Actio.Common.Services {
                 .AddCommandLine(args)
                 .Build();
             var webHostBuilder = WebHost.CreateDefaultBuilder (args)
-                .UseUrls("http://*:5050")
+                .UseUrls(useUrl)
                 .UseConfiguration (config)
                 .UseStartup<TSturtup>()
                 .UseDefaultServiceProvider(options => { options.ValidateScopes = false; });
