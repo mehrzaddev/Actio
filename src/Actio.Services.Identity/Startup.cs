@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Actio.Common.Mongo;
+using Actio.Common.RabbitMq;
+using Actio.Services.Identity.Domain.Repositories;
 using Actio.Services.Identity.Domain.Services;
+using Actio.Services.Identity.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +31,10 @@ namespace Actio.Services.Identity
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddMongoDB(Configuration);
+            services.AddRabbitMq(Configuration);
             services.AddScoped<IEncrypter, Encrypter>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
         }
 
@@ -39,8 +46,8 @@ namespace Actio.Services.Identity
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializerAsync();
             app.UseMvcWithDefaultRoute();
-
         }
     }
 }
