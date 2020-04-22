@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Actio.Common.RabbitMq;
 using Actio.Common.Events;
 using Actio.Api.Handlers;
+using Actio.Common.Auth;
 
 namespace Actio.Api
 {
@@ -30,6 +31,7 @@ namespace Actio.Api
         {
             services.AddMvc();
             services.AddRabbitMq(Configuration);
+            services.AddJwt(Configuration);
             services.AddScoped<IEventHandler<ActivityCreated>,ActivityCreateHandler>();
         }
 

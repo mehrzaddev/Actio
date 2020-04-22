@@ -12,5 +12,7 @@
     <PackageReference Include="RawRabbit.DependencyInjection.ServiceCollection" Version="2.0.0-beta8" />
     <PackageReference Include="RawRabbit.Operations.Publish" Version="2.0.0-beta8" />
     <PackageReference Include="RawRabbit.Operations.Subscribe" Version="2.0.0-beta8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
   </ItemGroup>
 </Project>

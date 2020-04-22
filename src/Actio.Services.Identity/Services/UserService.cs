@@ -1,10 +1,11 @@
-﻿using Actio.Common.Exeptions;
-using Actio.Services.Identity.Domain.Repositories;
-using Actio.Services.Identity.Domain.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Actio.Common.Auth;
+using Actio.Common.Exeptions;
+using Actio.Services.Identity.Domain.Repositories;
+using Actio.Services.Identity.Domain.Services;
 
 namespace Actio.Services.Identity.Services
 {
@@ -12,11 +13,12 @@ namespace Actio.Services.Identity.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IEncrypter _encrypter;
-
-        public UserService(IUserRepository userRepository, IEncrypter encrypter)
+        private readonly IJwtHandler _jwtHandler;
+        public UserService(IUserRepository userRepository, IEncrypter encrypter, IJwtHandler jwtHandler)
         {
             _userRepository = userRepository;
             _encrypter = encrypter;
+            _jwtHandler = jwtHandler;
         }
         public async Task RegisterAsync(string email, string password, string name)
         {
@@ -32,7 +34,7 @@ namespace Actio.Services.Identity.Services
             await _userRepository.AddAsync(user);
         }
 
-        public async Task LoginAsync(string email, string password)
+        public async Task<JsonWebToken> LoginAsync(string email, string password)
         {
             var user = await _userRepository.GetAsync(email);
             if (user == null)
@@ -47,7 +49,7 @@ namespace Actio.Services.Identity.Services
                     $"Invalid User");
             }
 
-            //ToDO : Get Token 
+            return _jwtHandler.Create(user.Id);
         }
     }
 }
