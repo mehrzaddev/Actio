@@ -49,10 +49,10 @@ namespace Actio.Services.Identity.Domain.Models
             }
 
             Salt = encrypter.GetSalt();
-            password = encrypter.GetHash(password, Salt);
+            Password = encrypter.GetHash(password, Salt);
         }
 
         public bool ValidatePassword(string password, IEncrypter encrypter) =>
-            password.Equals(encrypter.GetHash(password, Salt));
+            Password.Equals(encrypter.GetHash(password, Salt));
     }
 }
