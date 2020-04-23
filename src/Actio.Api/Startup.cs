@@ -14,6 +14,8 @@ using Actio.Common.RabbitMq;
 using Actio.Common.Events;
 using Actio.Api.Handlers;
 using Actio.Common.Auth;
+using Actio.Common.Mongo;
+using Actio.Api.Repositories;
 
 namespace Actio.Api
 {
@@ -30,9 +32,11 @@ namespace Actio.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddRabbitMq(Configuration);
+            services.AddMongoDB(Configuration);
             services.AddJwt(Configuration);
-            services.AddScoped<IEventHandler<ActivityCreated>,ActivityCreateHandler>();
+            services.AddRabbitMq(Configuration);
+            services.AddScoped<IEventHandler<ActivityCreated>, ActivityCreateHandler>();
+            services.AddScoped<IActivityRepository, ActivityRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +48,9 @@ namespace Actio.Api
             }
             app.UseAuthentication();
             app.UseMvc();
-          
 
-         
+
+
         }
     }
 }
