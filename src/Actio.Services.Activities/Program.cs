@@ -16,7 +16,7 @@ namespace Actio.Services.Activities
     { 
         public static void Main(string[] args)
         {
-            ServiceHost.Create<Startup>(args)
+            ServiceHost.Create<Startup>(args, "http://*:5052")
             .UseRabbitMq()
             .SubscribeToCommand<CreateActivity>()
             .Build()

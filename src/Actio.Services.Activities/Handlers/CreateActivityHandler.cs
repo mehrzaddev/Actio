@@ -16,7 +16,7 @@ namespace Actio.Services.Activities.Handlers
         private readonly ILogger _logger;
 
         public CreateActivityHandler(IBusClient busClient, IActivityService activityService,
-            ILogger logger)
+            ILogger<CreateActivityHandler> logger)
         {
             _logger = logger;
             _busClient = busClient;
